@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        deno-version: [1.2.0]
+
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v2
+      - name: deno v${{ matrix.deno-version }}
+        uses: denolib/setup-deno@master
+        with:
+          deno-version: ${{ matrix.deno-version }}
+      - name: deno lint
+        run: deno fmt --check
+      - name: build
+        run: deno run --reload errs.js
+      - name: test
+        run: deno test --allow-none

@@ -1,4 +1,4 @@
-# errs [![Build Status](https://secure.travis-ci.org/indexzero/errs.png)](http://travis-ci.org/indexzero/errs)
+# errs ![CI](https://github.com/wtfaremyinitials/errs/workflows/CI/badge.svg)
 
 Simple error creation and passing utilities focused on:
 
