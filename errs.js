@@ -9,7 +9,7 @@
 //
 // Container for registered error types.
 //
-export const registered = {}
+export const registered = {};
 
 //
 // Add `Error.prototype.toJSON` if it doesn't exist.
@@ -177,37 +177,6 @@ export const merge = function (err, type, opts) {
   }
 
   return merged;
-};
-
-//
-// ### function handle (error, callback)
-// #### @error {string|function|Array|object} Error to handle
-// #### @callback {function|EventEmitter} **Optional** Continuation or stream to pass the error to.
-// #### @stream {EventEmitter} **Optional** Explicit EventEmitter to use.
-//
-// Attempts to instantiate the given `error`. If the `error` is already a properly
-// formed `error` object (with a `stack` property) it will not be modified.
-//
-// * If `callback` is a function, it is invoked with the `error`.
-// * If `callback` is an `EventEmitter`, it emits the `error` event on
-//   that emitter and returns it.
-// * If no `callback`, return a new `EventEmitter` which emits `error`
-//   on `process.nextTick()`.
-//
-export const handle = function (error, callback, stream) {
-  error = create(error);
-
-  if (typeof callback === "function") {
-    callback(error);
-  }
-
-  if (typeof callback !== "function" || stream) {
-    var emitter = stream || callback || new events.EventEmitter();
-    process.nextTick(function () {
-      emitter.emit("error", error);
-    });
-    return emitter;
-  }
 };
 
 //
